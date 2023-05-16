@@ -12,6 +12,11 @@ const setup = () => {
     else {
       secondCard = $(this).find(".front_face")[0]
       console.log(firstCard, secondCard);
+      if (firstCard.id == secondCard.id) {
+        console.log("same card")
+        firstCard = undefined
+        return
+      }
       if (
         firstCard.src
         ==
