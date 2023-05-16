@@ -25,21 +25,7 @@ const setup = async () => {
     pokemon = pokemons[i];
     index = i;
     let src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png`
-    console.log(src)
-
-    // $("#game_grid").append(`
-    // <div class="card" id="card${i}">
-    //   <img id="img${i}" class="front_face" src=${src} alt="">
-    //   <img class="back_face" src="back.webp" alt="">
-    // </div>
-    // <div class="card" id="card${i + 1}">
-    //   <img id="img${i + 1}" class="front_face" src=${src} alt="">
-    //   <img class="back_face" src="back.webp" alt="">
-    // </div>
-    // `);
-
   };
-
 
   let firstCard = undefined
   let secondCard = undefined
@@ -110,6 +96,7 @@ const setup = async () => {
   });
 
   function startGame() {
+    $("#game_grid").removeClass("hidden")
     setInterval(loseGame, 30000)
 
     setInterval(decrementTime, 1000)
