@@ -2,7 +2,8 @@ body {
   margin: 0px;
 }
 
-#game_grid {
+#game_grid_easy,
+#game_grid_hard {
   border: 2px tomato solid;
   width: 600px;
   height: 400px;
@@ -66,4 +67,9 @@ button {
 
 .hidden {
   display: none !important;
+}
+
+input {
+  margin: 15px;
+  padding: 5px;
 }

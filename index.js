@@ -2,6 +2,17 @@
 
 
 const setup = async () => {
+  let difficulty = undefined;
+  $('#easy').change(function () {
+    difficulty = "easy";
+    $("#buttons").removeClass("hidden")
+  })
+
+  $('#hard').change(function () {
+    difficulty = "hard";
+    $("#buttons").removeClass("hidden")
+  })
+
   let seconds = 30;
   document.getElementById("seconds").innerText = seconds;
   let numberOfClicks = 0;
@@ -96,7 +107,15 @@ const setup = async () => {
   });
 
   function startGame() {
-    $("#game_grid").removeClass("hidden")
+    if (difficulty == "easy") {
+      $("#game_grid_easy").removeClass("hidden")
+    }
+    else if (difficult == "hard") {
+      $("#game_grid_hard").removeClass("hidden")
+    }
+    else {
+      return;
+    }
     setInterval(loseGame, 30000)
 
     setInterval(decrementTime, 1000)
