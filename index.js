@@ -20,11 +20,13 @@ const setup = () => {
         console.log("match")
         $(`#${firstCard.id}`).parent().off("click")
         $(`#${secondCard.id}`).parent().off("click")
+        firstCard = undefined
       } else {
         console.log("no match")
         setTimeout(() => {
           $(`#${firstCard.id}`).parent().toggleClass("flip")
           $(`#${secondCard.id}`).parent().toggleClass("flip")
+          firstCard = undefined
         }, 1000)
       }
     }
