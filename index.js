@@ -2,6 +2,8 @@
 
 
 const setup = async () => {
+  let seconds = 30;
+  document.getElementById("seconds").innerText = seconds;
   let numberOfClicks = 0;
   document.getElementById("clicksMade").innerText = numberOfClicks;
 
@@ -16,6 +18,8 @@ const setup = async () => {
   document.getElementById("pairsLeft").innerText = numberOfPairs
   let matchedPairs = 0;
   document.getElementById("pairsMatched").innerText = matchedPairs;
+
+
 
   for (let i = 1; i < pokemons.slice(0, numberOfPokemons).length + 1; i++) {
     pokemon = pokemons[i];
@@ -104,6 +108,20 @@ const setup = async () => {
       }
     }
   });
+
+  setInterval(loseGame, 30000)
+
+  setInterval(decrementTime, 1000)
+
+  function decrementTime() {
+    seconds -= 1;
+    document.getElementById("seconds").innerText = seconds;
+  }
+
+  function loseGame() {
+    alert("GAME OVER!")
+    location.reload()
+  }
 }
 
 $(document).ready(setup)
