@@ -112,6 +112,11 @@ const setup = async () => {
     }
   }
 
+  function resetGame() {
+    location.reload()
+  }
+
+  $("#resetButton").on(("click"), resetGame)
   $("#startButton").on(("click"), startGame)
 }
 
