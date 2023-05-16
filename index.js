@@ -109,19 +109,23 @@ const setup = async () => {
     }
   });
 
-  setInterval(loseGame, 30000)
+  function startGame() {
+    setInterval(loseGame, 30000)
 
-  setInterval(decrementTime, 1000)
+    setInterval(decrementTime, 1000)
 
-  function decrementTime() {
-    seconds -= 1;
-    document.getElementById("seconds").innerText = seconds;
+    function decrementTime() {
+      seconds -= 1;
+      document.getElementById("seconds").innerText = seconds;
+    }
+
+    function loseGame() {
+      alert("GAME OVER!")
+      location.reload()
+    }
   }
 
-  function loseGame() {
-    alert("GAME OVER!")
-    location.reload()
-  }
+  $("#startButton").on(("click"), startGame)
 }
 
 $(document).ready(setup)
