@@ -1,20 +1,25 @@
 
 
+function resetGame() {
+  location.reload()
+}
 
 const setup = async () => {
-  let difficulty = undefined;
+  let difficulty;
+  let seconds;
+
   $('#easy').change(function () {
     difficulty = "easy";
     $("#buttons").removeClass("hidden")
+    seconds = 20;
   })
 
   $('#hard').change(function () {
     difficulty = "hard";
     $("#buttons").removeClass("hidden")
+    seconds = 60;
   })
 
-  let seconds = 30;
-  document.getElementById("seconds").innerText = seconds;
   let numberOfClicks = 0;
   document.getElementById("clicksMade").innerText = numberOfClicks;
 
@@ -85,12 +90,20 @@ const setup = async () => {
         $(`#${firstCard.id}`).parent().toggleClass("flip")
         $(`#${secondCard.id}`).parent().toggleClass("flip")
         //if pairedCards == number of cards - 2, display winner after 1 second
-        setTimeout(() => {
-          if (pairedCards == numberOfCards - 2) {
+        // setTimeout(() => {
+        //   if (pairedCards == numberOfCards - 2) {
+        //     alert("You win!")
+        //     return
+        //   }
+        // }, 1000)
+        if (matchedPairs == numberOfPairs) {
+          setTimeout(() => {
             alert("You win!")
-            return
-          }
-        }, 1000)
+            location.reload()
+
+          }, 1000)
+          return
+        }
         firstCard = undefined
         secondCard = undefined
       } else {
@@ -107,16 +120,18 @@ const setup = async () => {
   });
 
   function startGame() {
+    $("#secondsHeader").removeClass("hidden")
     if (difficulty == "easy") {
       $("#game_grid_easy").removeClass("hidden")
+      setInterval(loseGame, 20000)
     }
     else if (difficult == "hard") {
       $("#game_grid_hard").removeClass("hidden")
+      setInterval(loseGame, 60000)
     }
     else {
       return;
     }
-    setInterval(loseGame, 30000)
 
     setInterval(decrementTime, 1000)
 
@@ -131,9 +146,7 @@ const setup = async () => {
     }
   }
 
-  function resetGame() {
-    location.reload()
-  }
+
 
   $("#resetButton").on(("click"), resetGame)
   $("#startButton").on(("click"), startGame)
