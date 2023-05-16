@@ -2,12 +2,20 @@
 
 
 const setup = async () => {
+  let numberOfClicks = 0;
+  document.getElementById("clicksMade").innerText = numberOfClicks;
 
   const result = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=810");
   const pokemons = result.data.results;
   console.log(pokemons)
 
   numberOfPokemons = 3
+
+  let numberOfPairs = numberOfPokemons;
+  document.getElementById("pairs").innerText = numberOfPairs
+  document.getElementById("pairsLeft").innerText = numberOfPairs
+  let matchedPairs = 0;
+  document.getElementById("pairsMatched").innerText = matchedPairs;
 
   for (let i = 1; i < pokemons.slice(0, numberOfPokemons).length + 1; i++) {
     pokemon = pokemons[i];
@@ -32,6 +40,9 @@ const setup = async () => {
   let firstCard = undefined
   let secondCard = undefined
   $(".card").on(("click"), function () {
+    //increment numberOfClicks
+    numberOfClicks += 1;
+    document.getElementById("clicksMade").innerText = numberOfClicks;
     //check how many cards have the .flip-paired class
     let pairedCards = $(".flip-paired").length
     console.log(pairedCards, "paired cards")
@@ -61,6 +72,9 @@ const setup = async () => {
       }
       if (firstCard.src == secondCard.src) {
         console.log("match")
+        document.getElementById("pairsLeft").innerText -= 1;
+        matchedPairs += 1;
+        document.getElementById("pairsMatched").innerText = matchedPairs;
         $(`#${firstCard.id}`).parent().off("click")
         $(`#${secondCard.id}`).parent().off("click")
         //add .flip-paired class to both cards
