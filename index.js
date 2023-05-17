@@ -5,43 +5,36 @@ function resetGame() {
 }
 
 const setup = async () => {
-  let difficulty;
-  let seconds;
+  var difficulty;
+  var seconds;
+  var numberOfPokemons = 0;
+  var numberOfPairs = 0;
+  var matchedPairs = 0;
 
   $('#easy').change(function () {
     difficulty = "easy";
     $("#buttons").removeClass("hidden")
     seconds = 20;
+    numberOfPokemons = 3;
+
+    // console.log("number of pokemons", numberOfPokemons)
   })
 
   $('#hard').change(function () {
     difficulty = "hard";
     $("#buttons").removeClass("hidden")
     seconds = 60;
+    numberOfPokemons += 9;
+    // console.log("number of pokemons", numberOfPokemons)
   })
+
 
   let numberOfClicks = 0;
   document.getElementById("clicksMade").innerText = numberOfClicks;
 
   const result = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=810");
   const pokemons = result.data.results;
-  console.log(pokemons)
-
-  numberOfPokemons = 3
-
-  let numberOfPairs = numberOfPokemons;
-  document.getElementById("pairs").innerText = numberOfPairs
-  document.getElementById("pairsLeft").innerText = numberOfPairs
-  let matchedPairs = 0;
-  document.getElementById("pairsMatched").innerText = matchedPairs;
-
-
-
-  for (let i = 1; i < pokemons.slice(0, numberOfPokemons).length + 1; i++) {
-    pokemon = pokemons[i];
-    index = i;
-    let src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png`
-  };
+  // console.log(pokemons);
 
   let firstCard = undefined
   let secondCard = undefined
@@ -51,15 +44,15 @@ const setup = async () => {
     document.getElementById("clicksMade").innerText = numberOfClicks;
     //check how many cards have the .flip-paired class
     let pairedCards = $(".flip-paired").length
-    console.log(pairedCards, "paired cards")
-    //find number of cards
-    let numberOfCards = $(".card").length
-    console.log(numberOfCards, "cards")
+    // console.log(pairedCards, "paired cards")
 
     //check how many cards are flipped
     let flippedCards = $(".flip").length
     //if more than 2, return
-    if (flippedCards > 1) return
+    if (flippedCards > 1) {
+      console.log("2 cards flipped")
+      return
+    }
 
     $(this).toggleClass("flip");
 
@@ -68,15 +61,16 @@ const setup = async () => {
       console.log(firstCard.id, "first card id")
     }
     else {
-      console.log("there was a first card")
+      // console.log("there was a first card")
       secondCard = $(this).find(".front_face")[0]
-      console.log(firstCard, secondCard);
+      // console.log(firstCard, secondCard);
       if (firstCard.id == secondCard.id) {
         console.log("same card")
         firstCard = undefined
+        // secondCard = undefined
         return
       }
-      if (firstCard.src == secondCard.src) {
+      else if (firstCard.src == secondCard.src) {
         console.log("match")
         document.getElementById("pairsLeft").innerText -= 1;
         matchedPairs += 1;
@@ -87,45 +81,45 @@ const setup = async () => {
         $(`#${firstCard.id}`).parent().toggleClass("flip-paired")
         $(`#${secondCard.id}`).parent().toggleClass("flip-paired")
         //remove .flip class from both cards
-        $(`#${firstCard.id}`).parent().toggleClass("flip")
-        $(`#${secondCard.id}`).parent().toggleClass("flip")
-        //if pairedCards == number of cards - 2, display winner after 1 second
-        // setTimeout(() => {
-        //   if (pairedCards == numberOfCards - 2) {
-        //     alert("You win!")
-        //     return
-        //   }
-        // }, 1000)
+        $(`#${firstCard.id}`).parent().removeClass("flip")
+        $(`#${secondCard.id}`).parent().removeClass("flip")
+        firstCard = undefined
+        secondCard = undefined
         if (matchedPairs == numberOfPairs) {
           setTimeout(() => {
             alert("You win!")
             location.reload()
-
           }, 1000)
           return
         }
-        firstCard = undefined
-        secondCard = undefined
+
       } else {
         console.log("no match")
         setTimeout(() => {
-          $(`#${firstCard.id}`).parent().toggleClass("flip")
-          $(`#${secondCard.id}`).parent().toggleClass("flip")
+          console.log(firstCard.id, secondCard.id)
+          $(`#${firstCard.id}`).parent().removeClass("flip")
+          $(`#${secondCard.id}`).parent().removeClass("flip")
           firstCard = undefined
           secondCard = undefined
         }, 1000)
-
       }
     }
   });
 
   function startGame() {
+    console.log("number of pokemons", numberOfPokemons)
+    numberOfPairs = numberOfPokemons;
+    document.getElementById("pairs").innerText = numberOfPairs;
+    document.getElementById("pairsLeft").innerText = numberOfPairs;
+    document.getElementById("pairsMatched").innerText = matchedPairs;
+
+
     $("#secondsHeader").removeClass("hidden")
     if (difficulty == "easy") {
       $("#game_grid_easy").removeClass("hidden")
       setInterval(loseGame, 20000)
     }
-    else if (difficult == "hard") {
+    else if (difficulty == "hard") {
       $("#game_grid_hard").removeClass("hidden")
       setInterval(loseGame, 60000)
     }

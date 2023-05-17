@@ -2,8 +2,7 @@ body {
   margin: 0px;
 }
 
-#game_grid_easy,
-#game_grid_hard {
+#game_grid_easy {
   border: 2px tomato solid;
   width: 600px;
   height: 400px;
@@ -12,6 +11,18 @@ body {
   flex-wrap: wrap;
 }
 
+#game_grid_hard {
+  border: 2px tomato solid;
+  width: 500px;
+  height: 900px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#game_grid_hard .card {
+  height: 145px;
+}
 
 .card {
   width: 33.3%;
