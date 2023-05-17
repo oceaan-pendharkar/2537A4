@@ -4,7 +4,22 @@ function resetGame() {
   location.reload()
 }
 
+function darkTheme() {
+  console.log("dark theme")
+  $("body").removeClass("light-theme")
+  $("body").addClass("dark-theme")
+}
+
+function lightTheme() {
+  console.log("light theme")
+  $("body").removeClass("dark-theme")
+  $("body").addClass("light-theme")
+}
+
 const setup = async () => {
+  $("#darkTheme").on(("click"), darkTheme)
+  $("#lightTheme").on(("click"), lightTheme)
+
   var difficulty;
   var seconds;
   var numberOfPokemons = 0;

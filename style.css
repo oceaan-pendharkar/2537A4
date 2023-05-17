@@ -84,3 +84,13 @@ input {
   margin: 15px;
   padding: 5px;
 }
+
+.dark-theme {
+  background-color: black;
+  color: white;
+}
+
+.light-theme {
+  background-color: white;
+  color: black;
+}
