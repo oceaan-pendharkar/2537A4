@@ -6,19 +6,28 @@ function resetGame() {
 
 function darkTheme() {
   console.log("dark theme")
+  $("body").removeClass("colour-theme")
   $("body").removeClass("light-theme")
   $("body").addClass("dark-theme")
 }
 
 function lightTheme() {
   console.log("light theme")
+  $("body").removeClass("colour-theme")
   $("body").removeClass("dark-theme")
   $("body").addClass("light-theme")
 }
 
+function colourTheme() {
+  console.log("colour theme")
+  $("body").removeClass("dark-theme")
+  $("body").removeClass("light-theme")
+  $("body").addClass("colour-theme")
+}
 const setup = async () => {
   $("#darkTheme").on(("click"), darkTheme)
   $("#lightTheme").on(("click"), lightTheme)
+  $("#colourTheme").on(("click"), colourTheme)
 
   var difficulty;
   var seconds;
