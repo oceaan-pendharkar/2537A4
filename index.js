@@ -78,7 +78,7 @@ const setup = async () => {
       return
     }
 
-    $(this).toggleClass("flip");
+    $(this).addClass("flip");
 
     if (!firstCard) {
       firstCard = $(this).find(".front_face")[0]
@@ -90,7 +90,7 @@ const setup = async () => {
       // console.log(firstCard, secondCard);
       if (firstCard.id == secondCard.id) {
         console.log("same card")
-        firstCard = undefined
+        // firstCard = undefined
         // secondCard = undefined
         return
       }
