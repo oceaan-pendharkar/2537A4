@@ -162,6 +162,19 @@ const setup = async () => {
       alert("GAME OVER!")
       location.reload()
     }
+
+    function powerUp() {
+      //add .flip class to all cards
+      $(".card").addClass("flip")
+      alert("Power Up!")
+      setTimeout(() => {
+        //remove .flip class from all cards
+        $(".card").removeClass("flip")
+      }
+        , 2000)
+    }
+
+    setInterval(powerUp, 15000)
   }
 
 
